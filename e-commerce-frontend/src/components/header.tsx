@@ -11,15 +11,18 @@ import {
 const user = { _id: "df", role: "adfmin" };
 
 const Header = () => {
+    const logoutHandler = () => {
+        setIsOpen(false)
+    }
     const [isOpen, setIsOpen] = useState<boolean>(false) ;
   return (
     <nav className="header" >
-      <Link to={"/"}> Home </Link>
-      <Link to={"/search"}>
+      <Link onClick={() => setIsOpen(false)} to={"/"}> Home </Link>
+      <Link onClick={() => setIsOpen(false)} to={"/search"}>
         {" "}
         <FaSearch />{" "}
       </Link>
-      <Link to={"/cart"}>
+      <Link onClick={() => setIsOpen(false)} to={"/cart"}>
         {" "}
         <FaShoppingBag />
       </Link>
@@ -34,15 +37,15 @@ const Header = () => {
               {user.role === "admin" ? (
                 <Link to="/admin/dashboard">Admin</Link>
               ) : null}
-              <Link to="/orders">Orders</Link>
-              <button>
+              <Link onClick={() => setIsOpen(false)} to="/orders">Orders</Link>
+              <button onClick={logoutHandler}>
                 <FaSignOutAlt />
               </button>
             </div>
           </dialog>
         </>
       ) : (
-        <Link to={"/login"}>
+        <Link onClick={() => setIsOpen(false)} to={"/login"}>
           <FaSignInAlt />
         </Link>
       )}
