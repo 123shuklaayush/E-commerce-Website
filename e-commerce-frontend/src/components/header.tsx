@@ -17,7 +17,7 @@ const Header = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false) ;
   return (
     <nav className="header" >
-      <Link onClick={() => setIsOpen(false)} to={"/"}> Home </Link>
+      <Link onClick={() => setIsOpen(false)} to={"/"}> HOME </Link>
       <Link onClick={() => setIsOpen(false)} to={"/search"}>
         {" "}
         <FaSearch />{" "}
