@@ -1,6 +1,6 @@
 .cart{
     padding: 2rem 4rem;
-    @include flex(row, stretch, space-between, 4rem);
+    @include flex(row, unset, unset, 4rem);
     height: calc(100vh - 4rem);
     > main{
         width: 70%;
@@ -53,7 +53,7 @@
 }
 
 .cart-item{
-    padding: 2rem;
+    padding: 1rem;
     @include flex(row, flex-start, center, 3rem);
     > img{
         @include square(10rem);
