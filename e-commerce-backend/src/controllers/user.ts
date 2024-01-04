@@ -49,7 +49,7 @@ interface Params {
     id: string;
 }
 
-export const getAllUser = TryCatch( async(req, res, next) => {
+export const getUser = TryCatch( async(req, res, next) => {
     const{ id }  = req.params as Params 
     const user = await User.findById(id);
 
