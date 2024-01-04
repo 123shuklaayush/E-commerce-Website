@@ -1,4 +1,4 @@
-import express, { Response, Request, NextFunction } from 'express'
+import express from 'express'
 import userRoutes from './routes/user.js'
 import { connectDB } from './utils/features.js';
 import { errorMiddleware } from './middlewares/error.js';
