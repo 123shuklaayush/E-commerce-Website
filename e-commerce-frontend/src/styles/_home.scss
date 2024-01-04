@@ -41,7 +41,7 @@
     padding: 1rem;
     flex: none;
     @include flex(column, flex-start, center, 4px);
-    position: relative;
+    position: absolute;
     background-color: white;
   
     &:hover > div {
