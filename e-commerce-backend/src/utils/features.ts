@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
-import { InvalidateCacheProps } from "../types/types.js";
+import { InvalidateCacheProps, OrderItemType } from "../types/types.js";
 import { myCache } from "../app.js";
 import { Product } from "../models/products.js";
+import { Order } from "../models/order.js";
 
 export const connectDB = (uri: string) => {
   mongoose
@@ -12,10 +13,12 @@ export const connectDB = (uri: string) => {
     .catch((error) => console.log(error));
 };
 
-export const invalidateCache = async({
+export const invalidateCache = async ({
   product,
   order,
   admin,
+  userId,
+  orderId,
 }: InvalidateCacheProps) => {
   if (product) {
     const productKeys: string[] = [
@@ -24,15 +27,33 @@ export const invalidateCache = async({
       "all-products",
     ];
     myCache.del(productKeys);
-    const products = await Product.find({}).select("_id")
+    const products = await Product.find({}).select("_id");
 
-  products.forEach(i => {
-    const id = i._id
-    productKeys.push(`product-${id}`)
-  });
-}
-  if (order) {
+    products.forEach((i) => {
+      const id = i._id;
+      productKeys.push(`product-${id}`);
+    });
   }
+  if (order) {
+    const orderKeys: string[] = [
+      "all-orders",
+      `my-orders-${userId}`,
+      `order-${orderId}`,
+    ];
+    myCache.del(orderKeys);
+  }
+
+  
   if (admin) {
+  }
+};
+
+export const reduceStock = async (orderItems: OrderItemType[]) => {
+  for (let i = 0; i < orderItems.length; i++) {
+    const order = orderItems[i];
+    const product = await Product.findById(order.productId);
+    if (!product) throw new Error("Product Not Found");
+    product.stock -= order.quantity;
+    await product.save();
   }
 };
