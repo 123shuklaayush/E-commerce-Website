@@ -7,6 +7,7 @@ import orderRoutes from './routes/order.js';
 import NodeCache from 'node-cache';
 import { config } from 'dotenv';
 import morgan from 'morgan';
+import paymentRoutes from './routes/payment.js'
 
 config()
 console.log(process.env.PORT);
@@ -30,6 +31,7 @@ app.get("/" , (req,res) => {
 app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/product', productRoutes)
 app.use('/api/v1/order', orderRoutes) 
+app.use('/api/v1/payment', paymentRoutes)
 
 app.use("/uploads", express.static("uploads"))
 app.use(errorMiddleware)
