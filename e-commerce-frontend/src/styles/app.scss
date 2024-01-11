@@ -267,7 +267,18 @@ body{
       animation: loading-animation 0.5s linear infinite;
     }
   }
-  
+  .skeleton-loader{
+    display: flex;
+    flex-direction: column;
+  }
+  .skeleton-shape{
+    height: 30px;
+    width: 100%;
+    background-color: #ddd;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    animation: skeleton-loading 1.5s linear infinite;
+  }
   @keyframes loading-animation {
     to {
       transform: rotateZ(360deg);
@@ -279,3 +290,15 @@ body{
     }
   }
   
+
+  @keyframes skeleton-loading{
+    0%{
+      opacity: 0.6;
+    }
+    50%{
+      opacity: 1
+    }
+    100%{
+      opacity: 0.6;
+    }
+  }

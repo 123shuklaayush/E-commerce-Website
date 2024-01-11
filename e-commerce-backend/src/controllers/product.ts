@@ -21,6 +21,7 @@ export const getLatestProducts = TryCatch(
             products = await Product.find({}).sort({createdAt: -1}).limit(5)
             myCache.set("latest-products", JSON.stringify(products))
         }
+
         
         return res.status(200).json({
             success: true,
