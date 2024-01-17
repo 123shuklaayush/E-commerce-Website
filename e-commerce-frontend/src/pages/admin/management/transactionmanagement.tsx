@@ -69,6 +69,7 @@ const TransactionManagement = () => {
       orderId: data?.order._id!,
     })
   };
+    if (isError) return <Navigate to={"/404"} />;
 
   return (
     <div className="admin-container">
