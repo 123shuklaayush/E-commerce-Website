@@ -4,10 +4,11 @@ import AdminSidebar from "../../../components/admin/AdminSidebar";
 
 import { useSelector } from "react-redux";
 import { Skeleton } from "../../../components/loader";
-import { useOrderDetailsQuery, useUpdateOrderMutation } from "../../../redux/api/orderAPI";
+import { useDeleteOrderMutation, useOrderDetailsQuery, useUpdateOrderMutation } from "../../../redux/api/orderAPI";
 import { server } from "../../../redux/store";
 import { UserReducerInitialState } from "../../../types/reducer-types";
 import { Order, OrderItem } from "../../../types/types";
+import { responseToast } from "../../../utils/features";
 
 const defaultData: Order = {
   shippingInfo: {
@@ -53,13 +54,14 @@ const TransactionManagement = () => {
   } = data?.order || defaultData;
 
   const [updateOrder] = useUpdateOrderMutation();
-  const [deleteOrder] = useUpdateOrderMutation();
+  const [deleteOrder] = useDeleteOrderMutation();
 
   const updateHandler = async() => {
     const res = await updateOrder({
       userId: user?._id!,
       orderId: data?.order._id!,
     })
+    responseToast(res, navigate, "/admin/transaction");
   };
   const deleteHandler = async() => {
     const res = await deleteOrder({

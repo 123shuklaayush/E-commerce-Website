@@ -16,7 +16,7 @@ export const orderApi = createApi({
   endpoints: (builder) => ({
     newOrder: builder.mutation<MessageResponse, NewOrderRequest>({
       query: (order) => ({
-        url: `new`,
+        url: "new",
         method: "POST",
         body: order,
       }),
@@ -29,9 +29,9 @@ export const orderApi = createApi({
       }),
       invalidatesTags: ["orders"],
     }),
-    deleteOrder: builder.mutation<MessageResponse, string>({
-      query: (id) => ({
-        url: `${id}`,
+    deleteOrder: builder.mutation<MessageResponse, UpdateOrderRequest>({
+      query: ({ userId, orderId }) => ({
+        url: `${orderId}?id=${userId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["orders"],
@@ -56,6 +56,6 @@ export const {
   useUpdateOrderMutation,
   useDeleteOrderMutation,
   useMyOrdersQuery,
-  useOrderDetailsQuery,
   useAllOrdersQuery,
+  useOrderDetailsQuery,
 } = orderApi;
