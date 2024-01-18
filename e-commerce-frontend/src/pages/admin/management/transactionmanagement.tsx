@@ -68,6 +68,7 @@ const TransactionManagement = () => {
       userId: user?._id!,
       orderId: data?.order._id!,
     })
+    responseToast(res, navigate, "/admin/transaction");
   };
     if (isError) return <Navigate to={"/404"} />;
 
