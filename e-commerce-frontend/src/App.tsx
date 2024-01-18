@@ -39,6 +39,7 @@ const ProductManagement = lazy(
 const TransactionManagement = lazy(
   () => import("./pages/admin/management/transactionmanagement")
 );
+
 const App = () => {
   const { user, loading } = useSelector(
     (state: { userReducer: UserReducerInitialState }) => state.userReducer

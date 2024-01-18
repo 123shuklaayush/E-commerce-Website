@@ -4,7 +4,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAjNN8cSDsCx1johwOXBEum3Js8sECmLnc",
+  apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
   authDomain: "e-commerce-website-2024.firebaseapp.com",
   projectId: "e-commerce-website-2024",
   storageBucket: "e-commerce-website-2024.appspot.com",
