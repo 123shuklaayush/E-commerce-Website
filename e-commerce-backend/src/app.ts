@@ -27,13 +27,7 @@ export const myCache = new NodeCache()
 
 app.use(express.json())
 app.use(morgan("dev"))
-app.use(cors(
-    {
-        origin: ["https://e-commerce-frontend-123sa.vercel.app"],
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true,
-    }
-))
+app.use(cors())
 app.get("/" , (req,res) => {
     res.send("Hello World")
 })
