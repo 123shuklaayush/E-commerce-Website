@@ -1,5 +1,9 @@
 const Loader = () => {
-  return <div>Loading...</div>;
+  return (
+    <section className="loader">
+      <div></div>
+    </section>
+  );
 };
 
 export default Loader;
@@ -10,13 +14,9 @@ interface SkeletonProps {
 }
 
 export const Skeleton = ({ width = "unset", length = 3 }: SkeletonProps) => {
-  const skeletons = Array.from({ length }, (_, idx) => 
-  <div key={idx} className="skeleton-shape"></div>
-  )
+  const skeletons = Array.from({ length }, (_, idx) => (
+    <div key={idx} className="skeleton-shape"></div>
+  ));
 
-  return (
-    <div className="skeleton-loader">
-      {skeletons}
-    </div>
-  );
+  return <div className="skeleton-loader">{skeletons}</div>;
 };
