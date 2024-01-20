@@ -15,16 +15,16 @@ import { RootState } from "../redux/store";
 import { NewOrderRequest } from "../types/api-types";
 import { responseToast } from "../utils/features";
 
-const stripePromise = loadStripe(
-  import.meta.env.VITE_STRIPE_PUBLIC_KEY as string
-);
-const CheckoutForm = () => {
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+
+const CheckOutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state: RootState) => state.userReducer)
+  const { user } = useSelector((state: RootState) => state.userReducer);
+
   const {
     shippingInfo,
     cartItems,
@@ -35,13 +35,13 @@ const CheckoutForm = () => {
     total,
   } = useSelector((state: RootState) => state.cartReducer);
 
-
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
-  const [newOrder] = useNewOrderMutation();
 
+  const [newOrder] = useNewOrderMutation();
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!stripe || !elements) return;
     setIsProcessing(true);
 
@@ -64,12 +64,12 @@ const CheckoutForm = () => {
 
     if (error) {
       setIsProcessing(false);
-      return toast.error(error.message || "Something went wrong");
+      return toast.error(error.message || "Something Went Wrong");
     }
 
     if (paymentIntent.status === "succeeded") {
       const res = await newOrder(orderData);
-      dispatch(resetCart())
+      dispatch(resetCart());
       responseToast(res, navigate, "/orders");
     }
     setIsProcessing(false);
@@ -88,8 +88,11 @@ const CheckoutForm = () => {
 
 const Checkout = () => {
   const location = useLocation();
-  const clientSecret : string | undefined = location.state;
-  if(!clientSecret) return <Navigate to={"/shipping"}/>;
+
+  const clientSecret: string | undefined = location.state;
+
+  if (!clientSecret) return <Navigate to={"/shipping"} />;
+
   return (
     <Elements
       options={{
@@ -97,7 +100,7 @@ const Checkout = () => {
       }}
       stripe={stripePromise}
     >
-      <CheckoutForm />
+      <CheckOutForm />
     </Elements>
   );
 };
