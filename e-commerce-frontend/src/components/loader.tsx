@@ -13,7 +13,7 @@ interface SkeletonProps {
   length?: number;
 }
 
-export const Skeleton = ({ width = "unset", length = 3 }: SkeletonProps) => {
+export const Skeleton = ({ length = 3 }: SkeletonProps) => {
   const skeletons = Array.from({ length }, (_, idx) => (
     <div key={idx} className="skeleton-shape"></div>
   ));
