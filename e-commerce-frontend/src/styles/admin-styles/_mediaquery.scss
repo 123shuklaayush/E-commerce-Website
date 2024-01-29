@@ -95,15 +95,4 @@
       margin: 8rem auto;
     }
   }
-
-  .dashboard-app-container > section {
-    .coupon-form,
-    .stopwatch {
-      display: flex;
-      flex-direction: column;
-    }
-    .stopwatch {
-      align-items: center;
-    }
-  }
 }

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { lazy, Suspense, useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import Loader from "./components/loader";
 import Header from "./components/header";
 import { Toaster } from "react-hot-toast";
@@ -11,34 +11,27 @@ import { getUser } from "./redux/api/userAPI";
 import { UserReducerInitialState } from "./types/reducer-types";
 import ProtectedRoute from "./components/protected-route";
 
-const Home = lazy(() => import("./pages/home"));
-const Search = lazy(() => import("./pages/search"));
-const Cart = lazy(() => import("./pages/cart"));
-const Shipping = lazy(() => import("./pages/shipping"));
-const Login = lazy(() => import("./pages/login"));
-const Orders = lazy(() => import("./pages/orders"));
-const OrderDetails = lazy(() => import("./pages/order-details"));
-const NotFound = lazy(() => import("./pages/not-found"));
-const Checkout = lazy(() => import("./pages/checkout"));
+import Home from "./pages/home";
+import Search from "./pages/search";
+import Cart from "./pages/cart";
+import Shipping from "./pages/shipping";
+import Login from "./pages/login";
+import Orders from "./pages/orders";
+import OrderDetails from "./pages/order-details";
+import NotFound from "./pages/not-found";
+import Checkout from "./pages/checkout";
 
-//Admin Routes
-const Dashboard = lazy(() => import("./pages/admin/dashboard"));
-const Products = lazy(() => import("./pages/admin/products"));
-const Customers = lazy(() => import("./pages/admin/customers"));
-const Transaction = lazy(() => import("./pages/admin/transaction"));
-const Barcharts = lazy(() => import("./pages/admin/charts/barcharts"));
-const Piecharts = lazy(() => import("./pages/admin/charts/piecharts"));
-const Linecharts = lazy(() => import("./pages/admin/charts/linecharts"));
-const Coupon = lazy(() => import("./pages/admin/apps/coupon"));
-const Stopwatch = lazy(() => import("./pages/admin/apps/stopwatch"));
-const Toss = lazy(() => import("./pages/admin/apps/toss"));
-const NewProduct = lazy(() => import("./pages/admin/management/newproduct"));
-const ProductManagement = lazy(
-  () => import("./pages/admin/management/productmanagement")
-);
-const TransactionManagement = lazy(
-  () => import("./pages/admin/management/transactionmanagement")
-);
+import Dashboard from "./pages/admin/dashboard";
+import Products from "./pages/admin/products";
+import Customers from "./pages/admin/customers";
+import Transaction from "./pages/admin/transaction";
+import Barcharts from "./pages/admin/charts/barcharts";
+import Piecharts from "./pages/admin/charts/piecharts";
+import Linecharts from "./pages/admin/charts/linecharts";
+import NewProduct from "./pages/admin/management/newproduct";
+import ProductManagement from "./pages/admin/management/productmanagement";
+import TransactionManagement from "./pages/admin/management/transactionmanagement";
+
 
 const App = () => {
   const { user, loading } = useSelector(
@@ -95,10 +88,7 @@ const App = () => {
             <Route path="/admin/chart/bar" element={<Barcharts />} />
             <Route path="/admin/chart/pie" element={<Piecharts />} />
             <Route path="/admin/chart/line" element={<Linecharts />} />
-            {/* Apps */}
-            <Route path="/admin/app/coupon" element={<Coupon />} />
-            <Route path="/admin/app/stopwatch" element={<Stopwatch />} />
-            <Route path="/admin/app/toss" element={<Toss />} />
+
 
             {/* Management */}
             <Route path="/admin/product/new" element={<NewProduct />} />
