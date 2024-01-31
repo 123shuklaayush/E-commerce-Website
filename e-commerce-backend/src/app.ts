@@ -12,6 +12,8 @@ import productRoutes from './routes/products.js';
 import orderRoutes from './routes/order.js';
 import paymentRoutes from './routes/payment.js'
 import dashboardRoutes from './routes/stats.js'
+import { singleUpload } from './middlewares/multer.js';
+import path from 'path';
 config()
 console.log(process.env.PORT);
 
@@ -32,6 +34,11 @@ app.get("/" , (req,res) => {
     res.send("Hello World")
 })
 
+const __dirname = path.resolve()
+
+const uploadsPath = path.join(__dirname, "../uploads")
+app.use("/uploads", express.static(uploadsPath))
+
 //Using Routes
 app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/product', productRoutes)
@@ -39,7 +46,7 @@ app.use('/api/v1/order', orderRoutes)
 app.use('/api/v1/payment', paymentRoutes)
 app.use('/api/v1/dashboard', dashboardRoutes)
 
-app.use("/uploads", express.static("uploads"))
+// app.use("/uploads", express.static("uploads"))
 app.use(errorMiddleware)
 
 app.listen(port, () => {
