@@ -144,7 +144,7 @@ const Shipping = () => {
           onChange={changeHandler}
           required
         />
-        <button type="submit">Pay Now</button>
+        <button onClick={makePayment} type="submit">Pay Now</button>
       </form>
     </div>
   );

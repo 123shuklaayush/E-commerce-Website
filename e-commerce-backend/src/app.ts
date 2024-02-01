@@ -24,8 +24,8 @@ const mongoURI = process.env.MONGO_URI || ""
 const stripeKey = process.env.STRIPE_KEY || ""
 
 connectDB(mongoURI)
-export const stripe = require('stripe')(process.env.SECRET_KEY)
-// export const stripe =  new Stripe(stripeKey)
+// export const stripe = require('stripe')(process.env.SECRET_KEY)
+export const stripe =  new Stripe(stripeKey)
 export const myCache = new NodeCache()
 
 app.use(express.json())
