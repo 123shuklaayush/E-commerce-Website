@@ -75,7 +75,7 @@ const App = () => {
             <Route path="/shipping" element={<Shipping />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/orders/:id" element={<OrderDetails />} />
-            <Route path="/pay" element={<Checkout/>} />
+            <Route path="/demo" element={<Checkout/>} />
             
           </Route>
           {/* { Admin Routes} */}

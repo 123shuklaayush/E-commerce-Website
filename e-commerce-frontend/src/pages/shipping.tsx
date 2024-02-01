@@ -7,6 +7,7 @@ import axios from "axios";
 import { server } from "../redux/store";
 import toast from "react-hot-toast";
 import { saveShippingInfo } from "../redux/reducer/cartReducer";
+import { loadStripe } from "@stripe/stripe-js";
 
 const Shipping = () => {
   const { cartItems, total } = useSelector(
@@ -47,7 +48,7 @@ const Shipping = () => {
         }
       );
 
-      navigate("/pay", {
+      navigate("/demo", {
         state: data.clientSecret,
       });
     } catch (error) {
@@ -58,6 +59,41 @@ const Shipping = () => {
   useEffect(() =>{
       if(cartItems.length <= 0) navigate("/cart")
   }, [cartItems])
+
+
+  const makePayment = async () => {
+    const stripe = await loadStripe("pk_test_51OWNPzSHFM5o4CnGSzySdT6oy9d2PzAwU60MANmkt7LlI8NFLDj563RZBNx2fXJhW4L7ybkViEzXEk9FLxpS2Lgi00ngMwRTey");
+
+    const body = {
+      products: cartItems
+    }
+
+    const headers = {
+      "Content-Type": "application/json"
+    }
+
+    const response = await fetch(`${server}/demo`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body)
+    })
+
+    const session = await response.json();
+
+    try {
+        const result = await stripe?.redirectToCheckout({
+            sessionId: session.id
+        });
+
+        // Handle the success case
+        console.log("Redirecting to checkout:", result);
+    } catch (error) {
+        // Handle any errors that occurred during redirection
+        console.error("Error redirecting to checkout:", error);
+        toast.error("Error during payment process");
+    }
+}
+
 
 
   return (

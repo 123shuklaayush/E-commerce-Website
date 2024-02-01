@@ -18,4 +18,18 @@ app.get("/coupon/all", adminOnly, allCoupons)
 // Route - /api/v1/payment/coupon/:id
 app.delete("/coupon/:id", adminOnly, deleteCoupon)
 
+// app.post("/demo", (req, res) => {
+//     const { products } = req.body
+
+//     const lineItems = products.map((product) => ({
+//         price_data: {
+//             currency: "inr",
+//             product_data: {
+//                 name: product.name,
+//                 images: [product.image],
+//             },
+//         }
+//     }));
+// })
+
 export default app;

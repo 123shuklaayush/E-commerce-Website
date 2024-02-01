@@ -4,19 +4,46 @@ import { Coupon } from "../models/coupon.js";
 import ErrorHandler from "../utils/utility-class.js";
 
 export const createPaymentIntent = TryCatch(async (req, res, next) => {
-  const { amount } = req.body;
+  const { amount, product } = req.body;
 
   if (!amount) return next(new ErrorHandler("Please Enter Amount", 400));
 
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: Number(amount) * 100,
-    currency: "inr",
+  // const paymentIntent = await stripe.paymentIntents.create({
+  //   amount: Number(amount) * 100,
+  //   currency: "inr",
+  // });
+  // return res.status(201).json({
+  //   success: true,
+  //   clientSecret: paymentIntent.client_secret,
+  // });
+
+  const lineItems = product.map((product: ProductType) => ({
+    price_data:{
+      currency: "usd",
+      product_data: {
+        name: product.name,
+        images: [product.image],
+      },
+      unit_amount:Math.round(product.price*100),
+    },
+    quantity: product.quantity
+  }))
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items: lineItems,
+    mode: "payment",
+    success_url: `http://127.0.0.1:5173/`,
+    cancel_url: ``,
   });
-  return res.status(201).json({
-    success: true,
-    clientSecret: paymentIntent.client_secret,
-  });
+  res.json({ id: session.id });
 });
+interface ProductType {
+  name: string;
+  image: string;
+  price: number;
+  quantity: number;
+}
+
 
 export const newCoupon = TryCatch(async (req, res, next) => {
   const { coupon, amount } = req.body;
